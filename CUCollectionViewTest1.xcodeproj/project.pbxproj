@@ -23,8 +23,6 @@
 		BADB29861F861696007F8851 /* layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADB29851F861696007F8851 /* layout.swift */; };
 		BADB29881F8616A1007F8851 /* WidgetData.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADB29871F8616A1007F8851 /* WidgetData.swift */; };
 		BADB298B1F86184D007F8851 /* DataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADB298A1F86184D007F8851 /* DataStore.swift */; };
-		BADB298F1F862621007F8851 /* WidgetCollectionDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADB298D1F862621007F8851 /* WidgetCollectionDataSource.swift */; };
-		BADB29901F862621007F8851 /* WidgetCollectionFlowDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADB298E1F862621007F8851 /* WidgetCollectionFlowDelegate.swift */; };
 		BADB29931F86264F007F8851 /* BotChatCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADB29911F86264F007F8851 /* BotChatCollectionViewCell.swift */; };
 		BADB29941F86264F007F8851 /* BotChatCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BADB29921F86264F007F8851 /* BotChatCollectionViewCell.xib */; };
 		BADB29971F86265E007F8851 /* UserChatCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADB29951F86265E007F8851 /* UserChatCollectionViewCell.swift */; };
@@ -52,8 +50,6 @@
 		BADB29851F861696007F8851 /* layout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = layout.swift; sourceTree = "<group>"; };
 		BADB29871F8616A1007F8851 /* WidgetData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WidgetData.swift; sourceTree = "<group>"; };
 		BADB298A1F86184D007F8851 /* DataStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataStore.swift; sourceTree = "<group>"; };
-		BADB298D1F862621007F8851 /* WidgetCollectionDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WidgetCollectionDataSource.swift; sourceTree = "<group>"; };
-		BADB298E1F862621007F8851 /* WidgetCollectionFlowDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WidgetCollectionFlowDelegate.swift; sourceTree = "<group>"; };
 		BADB29911F86264F007F8851 /* BotChatCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BotChatCollectionViewCell.swift; sourceTree = "<group>"; };
 		BADB29921F86264F007F8851 /* BotChatCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BotChatCollectionViewCell.xib; sourceTree = "<group>"; };
 		BADB29951F86265E007F8851 /* UserChatCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserChatCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -196,8 +192,6 @@
 		BADB298C1F86260F007F8851 /* CollectionDelegate */ = {
 			isa = PBXGroup;
 			children = (
-				BADB298D1F862621007F8851 /* WidgetCollectionDataSource.swift */,
-				BADB298E1F862621007F8851 /* WidgetCollectionFlowDelegate.swift */,
 				BADB29991F8626FB007F8851 /* CollectionViewDelegate.swift */,
 			);
 			name = CollectionDelegate;
@@ -334,13 +328,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BADB29901F862621007F8851 /* WidgetCollectionFlowDelegate.swift in Sources */,
 				BADB298B1F86184D007F8851 /* DataStore.swift in Sources */,
 				BADB29801F861644007F8851 /* WidgetCollectionViewCell.swift in Sources */,
 				BADB29881F8616A1007F8851 /* WidgetData.swift in Sources */,
 				BADB297C1F86160F007F8851 /* FileReader.swift in Sources */,
 				BADB299A1F8626FB007F8851 /* CollectionViewDelegate.swift in Sources */,
-				BADB298F1F862621007F8851 /* WidgetCollectionDataSource.swift in Sources */,
 				BADB29971F86265E007F8851 /* UserChatCollectionViewCell.swift in Sources */,
 				BADB29621F861495007F8851 /* ViewController.swift in Sources */,
 				BADB29861F861696007F8851 /* layout.swift in Sources */,
