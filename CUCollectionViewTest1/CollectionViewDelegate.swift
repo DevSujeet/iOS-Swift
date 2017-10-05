@@ -57,14 +57,10 @@ extension CollectionViewDelegate:UICollectionViewDelegateFlowLayout {
         case .widget(let widgetData):
             
             let maxColoumnSpan = widgetData.widgetMaxColoumn
-            
-            let widgetLayout = widgetData.widgetLayout //layoutInfo?.widgets?[indexPath.row]
+            let widgetLayout = widgetData.widgetLayout
             
             widthFactor = CGFloat( (widgetLayout?.colspan)! )/CGFloat( maxColoumnSpan! )
-            itemsPerRow = CGFloat( (widgetLayout?.cellCountInRow)! )    //(layoutInfo?.indexRowCountInfo[indexPath.row])!
-            
-            //2
-
+            itemsPerRow = CGFloat( (widgetLayout?.cellCountInRow)! )
         }
         
         let paddingSpace = sectionInsets.left * (itemsPerRow + 1)
@@ -73,20 +69,6 @@ extension CollectionViewDelegate:UICollectionViewDelegateFlowLayout {
         let height = heightForData(at: indexPath)
         
         return CGSize(width: widthPerItem, height: height)
-        
-//        let maxColoumnSpan = layoutInfo?.columns
-//        let widgetLayout = layoutInfo?.widgets?[indexPath.row]
-//        
-//        let widthFactor = CGFloat( (widgetLayout?.colspan)! )/CGFloat( maxColoumnSpan! )
-//        let itemsPerRow = CGFloat((layoutInfo?.indexRowCountInfo[indexPath.row])! )
-//        
-//        //2
-//        let paddingSpace = sectionInsets.left * (itemsPerRow + 1)
-//        let availableWidth = holderViewFrame.width - paddingSpace
-//        let widthPerItem = availableWidth  * widthFactor
-//        let height = heightForData(at: indexPath)
-//        
-//        return CGSize(width: widthPerItem, height: height)
     }
     
     //3

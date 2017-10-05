@@ -29,10 +29,25 @@ class DataStore {
         let userchat = dataType.userText("hi cuddle")
         let botResponse = dataType.BotText("hey there,Good Morning!!")
         
+        let userchat1 = dataType.userText("how is weather today?")
+        let botResponse1 = dataType.BotText("Today forecast predicts that the day would be sunny and humid.")
+        
         dataArray.append(userchat)
         dataArray.append(botResponse)
         
+        dataArray.append(userchat1)
+        dataArray.append(botResponse1)
+        
         if let packetData = createLayoutAndPacketInfo(fromData: "data", layoutFile: "layout") {
+            
+            for widget in packetData.widgets! {
+                let widgetDataType = dataType.widget(widget)
+                dataArray.append(widgetDataType)
+            }
+            
+        }
+        
+        if let packetData = createLayoutAndPacketInfo(fromData: "data1", layoutFile: "layout1") {
             
             for widget in packetData.widgets! {
                 let widgetDataType = dataType.widget(widget)
@@ -54,8 +69,8 @@ class DataStore {
             widgetObj = Mapper<PacketData>().map(JSONObject:widgetJson)
             layoutObj = Mapper<ViewLayout>().map(JSONObject: layoutJson)
             
-            print("widgetObj = \(widgetObj)")
-            print("layoutObj = \(layoutObj)")
+//            print("widgetObj = \(widgetObj)")
+//            print("layoutObj = \(layoutObj)")
         }catch {
             
         }

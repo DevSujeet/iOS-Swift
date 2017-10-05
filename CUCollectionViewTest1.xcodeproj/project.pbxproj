@@ -128,8 +128,8 @@
 			isa = PBXGroup;
 			children = (
 				BADB29721F8615E0007F8851 /* data.json */,
-				BADB29731F8615E0007F8851 /* data1.json */,
 				BADB29741F8615E0007F8851 /* layout.json */,
+				BADB29731F8615E0007F8851 /* data1.json */,
 				BADB29751F8615E0007F8851 /* layout1.json */,
 			);
 			name = ExternalFileData;
