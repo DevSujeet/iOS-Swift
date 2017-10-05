@@ -9,6 +9,15 @@
 import UIKit
 
 class ViewController: UIViewController {
+    let collectionDelegate = CollectionViewDelegate()
+    @IBOutlet weak var collectionView: UICollectionView! {
+        didSet {
+            collectionView.register(WidgetCollectionViewCell.self, forCellWithReuseIdentifier: "WidgetCollectionViewCell")
+            collectionView.delegate = collectionDelegate
+            collectionView.dataSource = collectionDelegate
+        }
+        
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()

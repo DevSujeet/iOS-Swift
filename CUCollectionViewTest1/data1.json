@@ -1,0 +1,33 @@
+
+{
+    "url": "./src/data/layout.json",
+    "widgets": [{
+                "type": "title",
+                "height":100,
+                "text": "This is a title"
+                }, {
+                "type": "subtitle",
+                "height":100,
+                "text": "This is a sub-title"
+                }, {
+                "type": "view",
+                "height":100,
+                "data": {
+                "sales": "2.19 M",
+                "percentageFromPrevDay": 20,
+                "percentageFromPrevYear": 30
+                }
+                }, {
+                "type": "view",
+                "height":80,
+                "data": {
+                "sales": "5 M",
+                "percentageFromPrevDay": 40,
+                "percentageFromPrevYear": 45
+                }
+                }, {
+                "type": "text",
+                "height":100,
+                "text": "Widget 6 - This is a simple text"
+                }]
+}
