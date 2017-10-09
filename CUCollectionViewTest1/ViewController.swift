@@ -15,6 +15,7 @@ class ViewController: UIViewController {
             collectionView.register(WidgetCollectionViewCell.self, forCellWithReuseIdentifier: "WidgetCollectionViewCell")
             collectionView.delegate = collectionDelegate
             collectionView.dataSource = collectionDelegate
+            
         }
         
     }
@@ -22,6 +23,13 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        let myLayout = TopAlignedCollectionViewFlowLayout()//CustomAlignedCellFlowLayout()
+//        myLayout.alignment = .top
+
+//        myLayout.sectionInset = UIEdgeInsetsMake(20.0, 20.0, 20.0, 20.0);
+//        myLayout.minimumInteritemSpacing = 20.0;
+//        myLayout.minimumLineSpacing = 20.0;
+        collectionView.setCollectionViewLayout(myLayout, animated: true)
     }
 
     override func didReceiveMemoryWarning() {

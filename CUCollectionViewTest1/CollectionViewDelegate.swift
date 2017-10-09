@@ -51,9 +51,9 @@ extension CollectionViewDelegate:UICollectionViewDelegateFlowLayout {
         let data = dataStore.dataAtIndex(index: indexPath)
         switch data {
         case .BotText( _):
-            print("text")
+            print("BotText")
         case .userText( _):
-            print("text")
+            print("userText")
         case .widget(let widgetData):
             
             let maxColoumnSpan = widgetData.widgetMaxColoumn
