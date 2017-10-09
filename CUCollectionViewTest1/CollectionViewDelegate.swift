@@ -14,13 +14,13 @@ class CollectionViewDelegate:NSObject,UICollectionViewDataSource{
     let dataStore = DataStore()
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 1
+        return dataStore.totalCountOfDataElement()
     }
     
     //2
     func collectionView(_ collectionView: UICollectionView,
                         numberOfItemsInSection section: Int) -> Int {
-        return dataStore.totalCountOfDataElement() //(widgetData?.widgets?.count == nil) ? 0: (widgetData?.widgets?.count)!
+        return dataStore.dataEntityCount(atSection: section)
     }
     
     //3
@@ -35,7 +35,7 @@ class CollectionViewDelegate:NSObject,UICollectionViewDataSource{
     
     
     //    fileprivate var itemsPerRow: CGFloat = 3
-    fileprivate let sectionInsets = UIEdgeInsets(top: 10.0, left: 10.0, bottom: 10.0, right: 10.0)
+    fileprivate let sectionInsets = UIEdgeInsets(top: 5.0, left: 10.0, bottom: 5.0, right: 10.0)
     var holderViewFrame:CGRect = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 0)
     var layoutInfo:ViewLayout?
 }
@@ -54,7 +54,9 @@ extension CollectionViewDelegate:UICollectionViewDelegateFlowLayout {
             print("BotText")
         case .userText( _):
             print("userText")
-        case .widget(let widgetData):
+        case .packet(let packetData):
+            
+            let widgetData = packetData.widgets![indexPath.row]
             
             let maxColoumnSpan = widgetData.widgetMaxColoumn
             let widgetLayout = widgetData.widgetLayout
@@ -85,15 +87,16 @@ extension CollectionViewDelegate:UICollectionViewDelegateFlowLayout {
         return sectionInsets.left
     }
     
-    func heightForData(at index: IndexPath) -> CGFloat {
+    func heightForData(at indexPath: IndexPath) -> CGFloat {
         var height:CGFloat = 0
-        let data = dataStore.dataAtIndex(index: index)
+        let data = dataStore.dataAtIndex(index: indexPath)
         switch data {
         case .BotText( _):
             height = 60
         case .userText( _):
             height = 50
-        case .widget(let widgetData):
+        case .packet(let packetData):
+            let widgetData = packetData.widgets![indexPath.row]
             height = widgetData.height ?? 0
         }
         return height

@@ -12,7 +12,7 @@ import ObjectMapper
 enum dataType {
     case userText(String)
     case BotText(String)
-    case widget(WidgetData)
+    case packet(PacketData)
 }
 
 
@@ -40,33 +40,37 @@ class DataStore {
         
         if let packetData = createLayoutAndPacketInfo(fromData: "data", layoutFile: "layout") {
             
-            for widget in packetData.widgets! {
-                let widgetDataType = dataType.widget(widget)
-                dataArray.append(widgetDataType)
-            }
+//            for widget in packetData.widgets! {
+//                let widgetDataType = dataType.widget(widget)
+//                dataArray.append(widgetDataType)
+//            }
+            let packetDataType = dataType.packet(packetData)
+            dataArray.append(packetDataType)
             
         }
         
         if let packetData = createLayoutAndPacketInfo(fromData: "data1", layoutFile: "layout1") {
             
-            for widget in packetData.widgets! {
-                let widgetDataType = dataType.widget(widget)
-                dataArray.append(widgetDataType)
-            }
+//            for widget in packetData.widgets! {
+//                let widgetDataType = dataType.widget(widget)
+//                dataArray.append(widgetDataType)
+//            }
             
+            let packetDataType = dataType.packet(packetData)
+            dataArray.append(packetDataType)
         }
     }
     
     func createLayoutAndPacketInfo(fromData dataFile:String, layoutFile:String) ->PacketData? {
-        var widgetObj:PacketData?
+        var packetObj:PacketData?
         var layoutObj:ViewLayout?
         
-        let widgetData = FileReader.getFileData(at: dataFile)
+        let packetData = FileReader.getFileData(at: dataFile)
         let layoutData = FileReader.getFileData(at: layoutFile)
         do {
-            let widgetJson = try JSONSerialization.jsonObject(with: widgetData!, options: [])
+            let packetJson = try JSONSerialization.jsonObject(with: packetData!, options: [])
             let layoutJson = try JSONSerialization.jsonObject(with: layoutData!, options: [])
-            widgetObj = Mapper<PacketData>().map(JSONObject:widgetJson)
+            packetObj = Mapper<PacketData>().map(JSONObject:packetJson)
             layoutObj = Mapper<ViewLayout>().map(JSONObject: layoutJson)
             
 //            print("widgetObj = \(widgetObj)")
@@ -75,9 +79,9 @@ class DataStore {
             
         }
         
-        widgetObj?.layout  = layoutObj
+        packetObj?.layout  = layoutObj
         
-        return widgetObj
+        return packetObj
     }
     
     
@@ -90,7 +94,19 @@ class DataStore {
     }
     
     func dataAtIndex(index:IndexPath) ->dataType {
-        return dataArray[index.row]
+        return dataArray[index.section]
+    }
+    
+    func dataEntityCount(atSection section:Int)->Int {
+        let data = dataArray[section]
+            switch data {
+            case .userText(_ ):
+                return 1
+            case .BotText(_ ):
+                return 1
+            case .packet(let packet):
+                return packet.widgets?.count ?? 0
+            }
     }
     
 }
