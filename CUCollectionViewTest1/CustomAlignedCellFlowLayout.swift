@@ -1,5 +1,5 @@
 //
-//  TopAlignedCellFlowLayout.swift
+//  TopAlignedCollectionViewFlowLayout.swift
 //  CUCollectionViewTest1
 //
 //  Created by Sujeet.Kumar on 10/9/17.
@@ -12,93 +12,76 @@ import UIKit
 enum flowLayoutAlignment {
     case normal
     case top
-    case left
     case bottom
-    case right
 }
 
-class CustomAlignedCellFlowLayout:UICollectionViewFlowLayout {
-    var alignment:flowLayoutAlignment?
+class CustomAlignedCellFlowLayout: UICollectionViewFlowLayout
+{
+    var flowAlignment:flowLayoutAlignment? = .normal
     
-    override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
-        let attributes = super.layoutAttributesForElements(in: rect)
-        for attribute in attributes! {
-            attribute.frame = (self.layoutAttributesForItem(at: attribute.indexPath)?.frame)!
-        }
+    override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]?
+    {
         
-        return attributes
-    }
-    
-    override func layoutAttributesForItem(at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
-        var attribute:UICollectionViewLayoutAttributes?
-        switch self.alignment! {
-        case .bottom :
-            print("cell alignment bottom.")
-        case .top :
-            print("cell alignment top.")
-            attribute = layoutAttributesForTopAlignmentForItem(atIndexPath: indexPath)
-        case .left :
-            print("cell alignment left.")
-            attribute = layoutAttributesForLeftAlignmentForItem(atIndexPath: indexPath)
-        case .right :
-            print("cell alignment right.")
-        
-        case .normal:
-            print("cell alignment normal.")
-            attribute = super.layoutAttributesForItem(at: indexPath)
-        }
-        return attribute
-    }
-
-    func layoutAttributesForLeftAlignmentForItem(atIndexPath indexPath:IndexPath) -> UICollectionViewLayoutAttributes {
-        let attributes:UICollectionViewLayoutAttributes = super.layoutAttributesForItem(at: indexPath)!
-        var frame = attributes.frame
-        
-        if attributes.frame.origin.x <= self.sectionInset.left {
-            return attributes
-        }
-        
-        if indexPath.item == 0 {
-            frame.origin.x = self.sectionInset.left
-        }else{
-            let previousIndexPath = IndexPath(item: indexPath.row - 1, section: indexPath.section)
-            let previousAttributes = self.layoutAttributesForItem(at: previousIndexPath)//self.layoutAttributesForItem(at: previousIndexPath)!
-            
-            if (attributes.frame.origin.y > (previousAttributes?.frame.origin.y)!) {
-                frame.origin.x = self.sectionInset.left;
-            } else {
-                frame.origin.x = (previousAttributes?.frame.maxX)! + self.minimumInteritemSpacing
-            }
-        }
-        
-        attributes.frame = frame
-        
-        return attributes
-    }
-    
-    func layoutAttributesForTopAlignmentForItem(atIndexPath indexPath:IndexPath) -> UICollectionViewLayoutAttributes {
-        let attributes:UICollectionViewLayoutAttributes = super.layoutAttributesForItem(at: indexPath)!
-        var frame = attributes.frame
-        if attributes.frame.origin.y <= self.sectionInset.top {
-            return attributes
-        }
-        
-        if indexPath.item == 0 {
-            frame.origin.y = self.sectionInset.top;
-        }else {
-            let previousIndexPath = IndexPath(item: indexPath.row - 1, section: indexPath.section)
-            let previousAttributes = self.layoutAttributesForItem(at: previousIndexPath)//self.layoutAttributesForItem(at: previousIndexPath)!
-            
-            if (attributes.frame.origin.x > (previousAttributes?.frame.origin.x)!) {
-                frame.origin.y = self.sectionInset.top;
-            } else {
-                frame.origin.y = (previousAttributes?.frame.maxY)! + self.minimumInteritemSpacing
+        if let attrs = super.layoutAttributesForElements(in: rect)
+        {
+            if .normal != flowAlignment {
+                var baseline: CGFloat = -2
+                var sameLineElements = [UICollectionViewLayoutAttributes]()
+                for element in attrs
+                {
+                    if element.representedElementCategory == .cell
+                    {
+                        let frame = element.frame
+                        let centerY = frame.midY
+                        if abs(centerY - baseline) > 1
+                        {
+                            baseline = centerY
+                            alignToCellForSameLineElements(sameLineElements: sameLineElements)
+                            sameLineElements.removeAll()
+                        }
+                        sameLineElements.append(element)
+                    }
+                }
+                alignToCellForSameLineElements(sameLineElements: sameLineElements) // align one more time for the last line
+                return attrs
             }
             
         }
+        return nil
+    }
+    
+    private func alignToCellForSameLineElements(sameLineElements: [UICollectionViewLayoutAttributes])
+    {
+        if sameLineElements.count < 1
+        {
+            return
+        }
+        let sorted = sameLineElements.sorted { (obj1: UICollectionViewLayoutAttributes, obj2: UICollectionViewLayoutAttributes) -> Bool in
+            
+            let height1 = obj1.frame.size.height
+            let height2 = obj2.frame.size.height
+            let delta = height1 - height2
+            return delta <= 0
+        }
+        if let tallest = sorted.last
+        {
+            for obj in sameLineElements
+            {
+                setOffestForAlignment(withTallest: tallest, targetObj: obj)
+            }
+        }
+    }
+    
+    private func setOffestForAlignment(withTallest tallest:UICollectionViewLayoutAttributes, targetObj:UICollectionViewLayoutAttributes) {
         
-        attributes.frame = frame
+        switch self.flowAlignment! {
+        case .bottom:
+            targetObj.frame = targetObj.frame.offsetBy(dx: 0,dy: targetObj.frame.origin.y - tallest.frame.origin.y )
+        case .top:
+            targetObj.frame = targetObj.frame.offsetBy(dx: 0,dy: tallest.frame.origin.y - targetObj.frame.origin.y)
+        default:
+            print("Do nothing")
+        }
         
-        return attributes
     }
 }

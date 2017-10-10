@@ -15,20 +15,15 @@ class ViewController: UIViewController {
             collectionView.register(WidgetCollectionViewCell.self, forCellWithReuseIdentifier: "WidgetCollectionViewCell")
             collectionView.delegate = collectionDelegate
             collectionView.dataSource = collectionDelegate
-            
         }
-        
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        let myLayout = TopAlignedCollectionViewFlowLayout()//CustomAlignedCellFlowLayout()
-//        myLayout.alignment = .top
+        let myLayout = CustomAlignedCellFlowLayout()//CustomAlignedCellFlowLayout()
+        myLayout.flowAlignment = .top
 
-//        myLayout.sectionInset = UIEdgeInsetsMake(20.0, 20.0, 20.0, 20.0);
-//        myLayout.minimumInteritemSpacing = 20.0;
-//        myLayout.minimumLineSpacing = 20.0;
         collectionView.setCollectionViewLayout(myLayout, animated: true)
     }
 
