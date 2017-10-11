@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		42463BB7D08325784B5DA0C7 /* Pods_CUCollectionViewTest1.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC88F3FBFE297143E6BE2496 /* Pods_CUCollectionViewTest1.framework */; };
 		BA42008A1F8BB79D00D6FED6 /* CustomAlignedCellFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4200891F8BB79D00D6FED6 /* CustomAlignedCellFlowLayout.swift */; };
+		BA6A65B01F8CC87A00E0D54E /* PacketSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6A65AE1F8CC87A00E0D54E /* PacketSectionView.swift */; };
+		BA6A65B11F8CC87A00E0D54E /* PacketSectionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA6A65AF1F8CC87A00E0D54E /* PacketSectionView.xib */; };
+		BA6A65B41F8CE75A00E0D54E /* PacketDecorationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6A65B21F8CE75A00E0D54E /* PacketDecorationView.swift */; };
+		BA6A65B51F8CE75A00E0D54E /* PacketDecorationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA6A65B31F8CE75A00E0D54E /* PacketDecorationView.xib */; };
 		BADB29601F861495007F8851 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADB295F1F861495007F8851 /* AppDelegate.swift */; };
 		BADB29621F861495007F8851 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADB29611F861495007F8851 /* ViewController.swift */; };
 		BADB29651F861495007F8851 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BADB29631F861495007F8851 /* Main.storyboard */; };
@@ -35,6 +39,10 @@
 		6D347C187C6D620A4BC14731 /* Pods-CUCollectionViewTest1.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CUCollectionViewTest1.release.xcconfig"; path = "Pods/Target Support Files/Pods-CUCollectionViewTest1/Pods-CUCollectionViewTest1.release.xcconfig"; sourceTree = "<group>"; };
 		6E1FCF508F79299529082E7F /* Pods-CUCollectionViewTest1.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CUCollectionViewTest1.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CUCollectionViewTest1/Pods-CUCollectionViewTest1.debug.xcconfig"; sourceTree = "<group>"; };
 		BA4200891F8BB79D00D6FED6 /* CustomAlignedCellFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlignedCellFlowLayout.swift; sourceTree = "<group>"; };
+		BA6A65AE1F8CC87A00E0D54E /* PacketSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PacketSectionView.swift; sourceTree = "<group>"; };
+		BA6A65AF1F8CC87A00E0D54E /* PacketSectionView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PacketSectionView.xib; sourceTree = "<group>"; };
+		BA6A65B21F8CE75A00E0D54E /* PacketDecorationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PacketDecorationView.swift; sourceTree = "<group>"; };
+		BA6A65B31F8CE75A00E0D54E /* PacketDecorationView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PacketDecorationView.xib; sourceTree = "<group>"; };
 		BADB295C1F861495007F8851 /* CUCollectionViewTest1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CUCollectionViewTest1.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BADB295F1F861495007F8851 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BADB29611F861495007F8851 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -97,6 +105,17 @@
 			name = CollectionViewCusotmLayout;
 			sourceTree = "<group>";
 		};
+		BA6A65AD1F8CC84000E0D54E /* CollectionViewSection */ = {
+			isa = PBXGroup;
+			children = (
+				BA6A65AE1F8CC87A00E0D54E /* PacketSectionView.swift */,
+				BA6A65AF1F8CC87A00E0D54E /* PacketSectionView.xib */,
+				BA6A65B21F8CE75A00E0D54E /* PacketDecorationView.swift */,
+				BA6A65B31F8CE75A00E0D54E /* PacketDecorationView.xib */,
+			);
+			name = CollectionViewSection;
+			sourceTree = "<group>";
+		};
 		BADB29531F861494007F8851 = {
 			isa = PBXGroup;
 			children = (
@@ -118,13 +137,14 @@
 		BADB295E1F861495007F8851 /* CUCollectionViewTest1 */ = {
 			isa = PBXGroup;
 			children = (
+				BA6A65AD1F8CC84000E0D54E /* CollectionViewSection */,
 				BA4200861F8B7C8700D6FED6 /* CollectionViewCusotmLayout */,
 				BADB298C1F86260F007F8851 /* CollectionDelegate */,
+				BADB297D1F861623007F8851 /* CollectionViewCell */,
 				BADB29891F8617F3007F8851 /* DataStore */,
 				BADB29821F861664007F8851 /* JsonMapper */,
 				BADB297A1F8615E8007F8851 /* FileReader */,
 				BADB29711F86155E007F8851 /* ExternalFileData */,
-				BADB297D1F861623007F8851 /* CollectionViewCell */,
 				BADB295F1F861495007F8851 /* AppDelegate.swift */,
 				BADB29611F861495007F8851 /* ViewController.swift */,
 				BADB29631F861495007F8851 /* Main.storyboard */,
@@ -271,11 +291,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BA6A65B51F8CE75A00E0D54E /* PacketDecorationView.xib in Resources */,
 				BADB29811F861644007F8851 /* WidgetCollectionViewCell.xib in Resources */,
 				BADB296A1F861495007F8851 /* LaunchScreen.storyboard in Resources */,
 				BADB29671F861495007F8851 /* Assets.xcassets in Resources */,
 				BADB29651F861495007F8851 /* Main.storyboard in Resources */,
 				BADB29771F8615E0007F8851 /* data1.json in Resources */,
+				BA6A65B11F8CC87A00E0D54E /* PacketSectionView.xib in Resources */,
 				BADB29761F8615E0007F8851 /* data.json in Resources */,
 				BADB29941F86264F007F8851 /* BotChatCollectionViewCell.xib in Resources */,
 				BADB29781F8615E0007F8851 /* layout.json in Resources */,
@@ -341,10 +363,12 @@
 			files = (
 				BADB298B1F86184D007F8851 /* DataStore.swift in Sources */,
 				BADB29801F861644007F8851 /* WidgetCollectionViewCell.swift in Sources */,
+				BA6A65B41F8CE75A00E0D54E /* PacketDecorationView.swift in Sources */,
 				BA42008A1F8BB79D00D6FED6 /* CustomAlignedCellFlowLayout.swift in Sources */,
 				BADB29881F8616A1007F8851 /* WidgetData.swift in Sources */,
 				BADB297C1F86160F007F8851 /* FileReader.swift in Sources */,
 				BADB299A1F8626FB007F8851 /* CollectionViewDelegate.swift in Sources */,
+				BA6A65B01F8CC87A00E0D54E /* PacketSectionView.swift in Sources */,
 				BADB29971F86265E007F8851 /* UserChatCollectionViewCell.swift in Sources */,
 				BADB29621F861495007F8851 /* ViewController.swift in Sources */,
 				BADB29861F861696007F8851 /* layout.swift in Sources */,

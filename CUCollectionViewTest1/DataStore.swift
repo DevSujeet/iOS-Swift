@@ -35,30 +35,16 @@ class DataStore {
         dataArray.append(userchat)
         dataArray.append(botResponse)
         
-        dataArray.append(userchat1)
-        dataArray.append(botResponse1)
+//        dataArray.append(userchat1)
+//        dataArray.append(botResponse1)
         
         if let packetData = createLayoutAndPacketInfo(fromData: "data", layoutFile: "layout") {
-            
-//            for widget in packetData.widgets! {
-//                let widgetDataType = dataType.widget(widget)
-//                dataArray.append(widgetDataType)
-//            }
             let packetDataType = dataType.packet(packetData)
             dataArray.append(packetDataType)
             
         }
         
-        if let packetData = createLayoutAndPacketInfo(fromData: "data1", layoutFile: "layout1") {
-            
-//            for widget in packetData.widgets! {
-//                let widgetDataType = dataType.widget(widget)
-//                dataArray.append(widgetDataType)
-//            }
-            
-            let packetDataType = dataType.packet(packetData)
-            dataArray.append(packetDataType)
-        }
+        
     }
     
     func createLayoutAndPacketInfo(fromData dataFile:String, layoutFile:String) ->PacketData? {
@@ -72,9 +58,7 @@ class DataStore {
             let layoutJson = try JSONSerialization.jsonObject(with: layoutData!, options: [])
             packetObj = Mapper<PacketData>().map(JSONObject:packetJson)
             layoutObj = Mapper<ViewLayout>().map(JSONObject: layoutJson)
-            
-//            print("widgetObj = \(widgetObj)")
-//            print("layoutObj = \(layoutObj)")
+
         }catch {
             
         }
@@ -84,6 +68,16 @@ class DataStore {
         return packetObj
     }
     
+    func addData() {
+        if let packetData = createLayoutAndPacketInfo(fromData: "data1", layoutFile: "layout1") {
+            let packetDataType = dataType.packet(packetData)
+            dataArray.append(packetDataType)
+        }
+    }
+    
+    func deleteData() {
+        dataArray.removeLast()
+    }
     
     //assuming the widgets in the packet as Data element.
     func totalCountOfDataElement() ->Int{
@@ -95,6 +89,10 @@ class DataStore {
     
     func dataAtIndex(index:IndexPath) ->dataType {
         return dataArray[index.section]
+    }
+    
+    func dataAt(section:Int) ->dataType {
+        return dataArray[section]
     }
     
     func dataEntityCount(atSection section:Int)->Int {

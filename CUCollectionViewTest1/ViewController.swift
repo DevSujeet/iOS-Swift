@@ -22,8 +22,17 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         let myLayout = CustomAlignedCellFlowLayout()//CustomAlignedCellFlowLayout()
-        myLayout.flowAlignment = .top
+        myLayout.flowAlignment = .bottom
 
+//        myLayout.sectionInset = UIEdgeInsetsMake(0, 10, 0, 10)
+//        myLayout.minimumInteritemSpacing = 20.0;
+//        myLayout.minimumLineSpacing = 20.0;
+        
+        //use class if view is made by code, if nib is used, register by nib.
+        //collection view set header view   //PacketDecorationView
+        let headerNib = UINib(nibName: "PacketSectionView", bundle: nil)
+        collectionView.register(headerNib, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: collectionViewInfo.headerReuseIdentifier)
+        //set collection layout object..
         collectionView.setCollectionViewLayout(myLayout, animated: true)
     }
 
@@ -32,6 +41,21 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
-
+    @IBAction func deletePacketAtLast(_ sender: UIBarButtonItem) {
+        collectionDelegate.deleteData()
+        let delIndex = collectionDelegate.dataStore.dataArray.count
+        self.collectionView.performBatchUpdates({
+            self.collectionView.deleteSections(IndexSet(integer: delIndex))
+        }, completion: nil)
+    }
+    
+    @IBAction func addPacketAtLast(_ sender: UIBarButtonItem) {
+        collectionDelegate.addData()
+        let insertedIndex = collectionDelegate.dataStore.dataArray.count - 1
+        self.collectionView.performBatchUpdates({
+            self.collectionView.insertSections(IndexSet(integer: insertedIndex))
+        }, completion: nil)
+    }
+    
 }
 

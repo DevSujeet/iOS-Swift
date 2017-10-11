@@ -9,7 +9,16 @@
 import Foundation
 import UIKit
 
-class CollectionViewDelegate:NSObject,UICollectionViewDataSource{
+struct collectionViewInfo {
+    static let headerViewKind = UICollectionElementKindSectionHeader
+    static let headerReuseIdentifier = "PacketSectionViewIdentifier"
+    
+//use the decorationKind as the reuse identifier in the decoration NIB.
+    static let packetDecorationKind = "packetDecorationKind"
+    static let packetDecorationViewNib = "PacketDecorationView"
+}
+
+class CollectionViewDelegate:NSObject,UICollectionViewDataSource {
     let reuseIdentifier = "WidgetCollectionViewCell"
     let dataStore = DataStore()
     
@@ -33,6 +42,12 @@ class CollectionViewDelegate:NSObject,UICollectionViewDataSource{
         return cell
     }
     
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        
+        let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: collectionViewInfo.headerReuseIdentifier, for: indexPath) as! PacketSectionView
+        headerView.sectionTitleLabel.text = "header"
+        return headerView
+    }
     
     //    fileprivate var itemsPerRow: CGFloat = 3
     fileprivate let sectionInsets = UIEdgeInsets(top: 5.0, left: 10.0, bottom: 5.0, right: 10.0)
@@ -87,6 +102,18 @@ extension CollectionViewDelegate:UICollectionViewDelegateFlowLayout {
         return sectionInsets.left
     }
     
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        let data = dataStore.dataAt(section: section)
+        switch data {
+        case .packet(_):
+            //width doesnt have effect in the collection header se=ize for vertical scroll.
+            let width = UIScreen.main.bounds.width - 200//(self.sectionInsets.left * 2)
+            return CGSize(width: width, height: 50)
+        default:
+            return CGSize(width: 0, height: 0)
+        }
+    }
+    
     func heightForData(at indexPath: IndexPath) -> CGFloat {
         var height:CGFloat = 0
         let data = dataStore.dataAtIndex(index: indexPath)
@@ -102,4 +129,17 @@ extension CollectionViewDelegate:UICollectionViewDelegateFlowLayout {
         return height
     }
     
+    func heightForPacket(at indexPath: IndexPath) -> CGFloat {
+        return 0
+    }
+    
+    //MARk:- data source update
+    func addData() {
+        dataStore.addData()
+        
+    }
+    
+    func deleteData() {
+        dataStore.deleteData()
+    }
 }
