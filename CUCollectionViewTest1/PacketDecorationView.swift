@@ -19,6 +19,11 @@ class PacketDecorationView: UICollectionReusableView {
         super.apply(layoutAttributes)
         let packetDecorationAttribute = layoutAttributes as! PacketDecorationViewLayoutAttributes
         self.backgroundColor = packetDecorationAttribute.color
+        
+        self.layer.cornerRadius = 2.0
+        self.layer.masksToBounds = true
+        self.layer.borderWidth = 1
+        self.layer.borderColor = UIColor.red.cgColor
     }
     
 }

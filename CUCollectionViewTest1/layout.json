@@ -6,32 +6,38 @@
             "row": 0,
             "column": 0,
             "colspan": 3,
-            "rowspan": 1
+            "rowspan": 1,
+            "templateId" : "SUMMARY_1"
         }, {
             "row": 1,
             "column": 0,
             "colspan": 3,
-            "rowspan": 1
+            "rowspan": 1,
+                "templateId" : "SUMMARY_1"
         }, {
             "row": 2,
             "column": 0,
             "colspan": 1,
-            "rowspan": 1
+            "rowspan": 1,
+                "templateId" : "SUMMARY_2"
         }, {
             "row": 2,
             "column": 1,
             "colspan": 1,
-            "rowspan": 1
+            "rowspan": 1,
+                "templateId" : "TREND_1"
         }, {
             "row": 2,
             "column": 2,
             "colspan": 1,
-            "rowspan": 1
+            "rowspan": 1,
+                "templateId" : "TABULAR_1"
         }, {
             "row": 3,
             "column": 0,
             "colspan": 3,
-            "rowspan": 1
+            "rowspan": 1,
+            "templateId" : "COMPARO_1"
         }
     ]
 }

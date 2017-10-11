@@ -14,13 +14,14 @@ enum flowLayoutAlignment {
     case top
     case bottom
 }
-protocol CustomAlignedCellFlowLayoutProtocol {
-    func heightForPacket(atIndex index:IndexPath) ->CGFloat
+protocol CustomAlignedCellFlowLayoutDelegate:NSObjectProtocol {
+    func packetAtSection(section:Int) ->PacketData?
 }
+
 class CustomAlignedCellFlowLayout: UICollectionViewFlowLayout
 {
     var flowAlignment:flowLayoutAlignment? = .normal
-    
+    weak var customFlowDelegate:CustomAlignedCellFlowLayoutDelegate?
     override init() {
         super.init()
          let decorationNib = UINib(nibName: collectionViewInfo.packetDecorationViewNib, bundle: nil)
@@ -52,9 +53,19 @@ class CustomAlignedCellFlowLayout: UICollectionViewFlowLayout
                     }
                     
                     // Make the decoration view span the entire row - or whatever you want ;)
-                    let tmpWidth = self.collectionView!.contentSize.width
-                    let tmpHeight = self.itemSize.height + self.minimumLineSpacing + self.sectionInset.top / 2 + self.sectionInset.bottom / 2 // or attributes.frame.size.height instead of itemSize.height if dynamic or recalculated
-                    let packetRect = CGRect(x: self.sectionInset.left, y: attr.frame.origin.y - self.sectionInset.top, width: tmpWidth, height: tmpHeight)
+                    var tmpWidth = self.collectionView!.contentSize.width
+                    var tmpHeight = CGFloat(0)
+                    if let packet = self.customFlowDelegate?.packetAtSection(section: attr.indexPath.section) {
+                        let widgetCount = packet.widgets?.count
+                        let lastCellInSectionIndexPath = IndexPath(row: widgetCount! - 1, section: attr.indexPath.section)
+                        let lastCellAttribute = self.layoutAttributesForItem(at: lastCellInSectionIndexPath)
+                        let lastCellFrame = lastCellAttribute?.frame
+                        tmpHeight = (lastCellFrame?.origin.y)! - attr.frame.origin.y + (lastCellFrame?.size.height)!
+                        tmpWidth = (lastCellFrame?.size.width)!
+                    }
+
+                    let packetRect = CGRect(x: self.sectionInset.left - 2, y: attr.frame.origin.y - 2 , width: tmpWidth + 4, height: tmpHeight + 4)
+                    
                     packetDecorationAttr.frame = packetRect
                     // Set the zIndex to be behind the item
                     packetDecorationAttr.zIndex = attr.zIndex - 1
@@ -67,6 +78,10 @@ class CustomAlignedCellFlowLayout: UICollectionViewFlowLayout
             allAttributes += attrs
         }
         return allAttributes
+    }
+    
+    override func layoutAttributesForItem(at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
+        return super.layoutAttributesForItem(at:indexPath)
     }
     
     override func layoutAttributesForDecorationView(ofKind elementKind: String, at indexPath: IndexPath)

@@ -76,7 +76,10 @@ class DataStore {
     }
     
     func deleteData() {
-        dataArray.removeLast()
+        if dataArray.count > 0 {
+            dataArray.removeLast()
+        }
+        
     }
     
     //assuming the widgets in the packet as Data element.

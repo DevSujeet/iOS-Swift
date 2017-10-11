@@ -15,6 +15,7 @@ class ViewController: UIViewController {
             collectionView.register(WidgetCollectionViewCell.self, forCellWithReuseIdentifier: "WidgetCollectionViewCell")
             collectionView.delegate = collectionDelegate
             collectionView.dataSource = collectionDelegate
+            
         }
     }
 
@@ -23,8 +24,10 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
         let myLayout = CustomAlignedCellFlowLayout()//CustomAlignedCellFlowLayout()
         myLayout.flowAlignment = .bottom
+        myLayout.customFlowDelegate = collectionDelegate
 
-//        myLayout.sectionInset = UIEdgeInsetsMake(0, 10, 0, 10)
+//        UIEdgeInsetsMake(<#T##top: CGFloat##CGFloat#>, <#T##left: CGFloat##CGFloat#>, <#T##bottom: CGFloat##CGFloat#>, <#T##right: CGFloat##CGFloat#>)
+        myLayout.sectionInset = UIEdgeInsetsMake(10, 10, 10, 10)
 //        myLayout.minimumInteritemSpacing = 20.0;
 //        myLayout.minimumLineSpacing = 20.0;
         

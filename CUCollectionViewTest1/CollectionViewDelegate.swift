@@ -143,3 +143,15 @@ extension CollectionViewDelegate:UICollectionViewDelegateFlowLayout {
         dataStore.deleteData()
     }
 }
+
+extension CollectionViewDelegate: CustomAlignedCellFlowLayoutDelegate {
+    func packetAtSection(section: Int) -> PacketData? {
+        let dataType = dataStore.dataAt(section: section)
+        switch dataType {
+        case .packet(let packetData):
+            return packetData
+        default:
+            return nil
+        }
+    }
+}

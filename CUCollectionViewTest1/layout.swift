@@ -108,12 +108,13 @@ class WidgetLayout:NSObject , Mappable{
     var column:Int = 0
     var colspan:Int = 0
     var rowspan:Int = 0
+    var templateId:String = ""
     
     var cellCountInRow:Int?
     
     //MARK:- object Mapper and default initializer methods
     override var description: String {
-        return "row: \(row), coloumn: \(column),colspan: \(colspan), rowspan: \(rowspan)"
+        return "row: \(row), coloumn: \(column),colspan: \(colspan), rowspan: \(rowspan), templateId: \(templateId)"
     }
     
     required init?(map:Map){
@@ -125,6 +126,7 @@ class WidgetLayout:NSObject , Mappable{
         column <- map["column"]
         colspan <- map["colspan"]
         rowspan <- map["rowspan"]
+        templateId <- map["templateId"]
     }
 
 }
