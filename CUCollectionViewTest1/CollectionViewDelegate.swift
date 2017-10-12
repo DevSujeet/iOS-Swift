@@ -16,10 +16,16 @@ struct collectionViewInfo {
 //use the decorationKind as the reuse identifier in the decoration NIB.
     static let packetDecorationKind = "packetDecorationKind"
     static let packetDecorationViewNib = "PacketDecorationView"
+    
+    //cell identifier
+    static let widgetReuseIdentifier = "WidgetCollectionViewCell"
+    static let botChatCellIdentifier = "botChatCell"
+    static let userChatCellIdentifier = "userChatCell"
 }
 
 class CollectionViewDelegate:NSObject,UICollectionViewDataSource {
-    let reuseIdentifier = "WidgetCollectionViewCell"
+
+    
     let dataStore = DataStore()
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -35,11 +41,28 @@ class CollectionViewDelegate:NSObject,UICollectionViewDataSource {
     //3
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier,
-                                                      for: indexPath)
-        cell.backgroundColor = UIColor.black
-        // Configure the cell
-        return cell
+        let dataType = self.dataStore.dataAtIndex(index: indexPath)
+        switch dataType {
+        case .packet(_ ):
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: collectionViewInfo.widgetReuseIdentifier,
+                                                          for: indexPath)
+            cell.backgroundColor = UIColor.black
+            // Configure the cell
+            return cell
+        case.BotText(let text):
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: collectionViewInfo.botChatCellIdentifier,for: indexPath) as! BotChatCollectionViewCell
+            cell.chatLabel.text = text
+            cell.backgroundColor = UIColor.purple
+            // Configure the cell
+            return cell
+        case .userText(let text):
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: collectionViewInfo.userChatCellIdentifier,for: indexPath) as! UserChatCollectionViewCell
+            cell.backgroundColor = UIColor.yellow
+            cell.chatLabel.text = text
+            // Configure the cell
+            return cell
+        }
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {

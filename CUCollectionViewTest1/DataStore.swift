@@ -35,8 +35,8 @@ class DataStore {
         dataArray.append(userchat)
         dataArray.append(botResponse)
         
-//        dataArray.append(userchat1)
-//        dataArray.append(botResponse1)
+        dataArray.append(userchat1)
+        dataArray.append(botResponse1)
         
         if let packetData = createLayoutAndPacketInfo(fromData: "data", layoutFile: "layout") {
             let packetDataType = dataType.packet(packetData)

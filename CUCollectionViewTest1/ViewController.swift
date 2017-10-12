@@ -12,7 +12,16 @@ class ViewController: UIViewController {
     let collectionDelegate = CollectionViewDelegate()
     @IBOutlet weak var collectionView: UICollectionView! {
         didSet {
-            collectionView.register(WidgetCollectionViewCell.self, forCellWithReuseIdentifier: "WidgetCollectionViewCell")
+            //register the collection with the cell it is going to use.
+            let widgetCellNib = UINib(nibName: "WidgetCollectionViewCell", bundle: nil)
+            collectionView.register(widgetCellNib, forCellWithReuseIdentifier: collectionViewInfo.widgetReuseIdentifier)
+            
+            let botCellNib = UINib(nibName: "BotChatCollectionViewCell", bundle: nil)
+            collectionView.register(botCellNib, forCellWithReuseIdentifier: collectionViewInfo.botChatCellIdentifier)
+            
+            let userCellNib = UINib(nibName: "UserChatCollectionViewCell", bundle: nil)
+             collectionView.register(userCellNib, forCellWithReuseIdentifier: collectionViewInfo.userChatCellIdentifier)
+            
             collectionView.delegate = collectionDelegate
             collectionView.dataSource = collectionDelegate
             
