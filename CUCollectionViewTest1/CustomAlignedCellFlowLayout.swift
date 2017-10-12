@@ -33,7 +33,17 @@ class CustomAlignedCellFlowLayout: UICollectionViewFlowLayout
     }
     
 
-    
+    /*
+     Note:- Never create Attribute here directly for any (cell, header(supplymentry), decorationview)
+     use the
+     layoutAttributesForItem(at indexPath: IndexPath) -> UICollectionViewLayoutAttributes?
+     func layoutAttributesForDecorationView(ofKind elementKind: String, at indexPath: IndexPath)
+     layoutAttributeForSupplymentryView
+     to create..a new attribute for any type based on the index information.
+     
+     as these methods can be asked to return attributes at a given index by the layout object.
+     hence using the methods helps maintain the consistancy.
+     */
     override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]?
     {
         var allAttributes:[UICollectionViewLayoutAttributes] = []
