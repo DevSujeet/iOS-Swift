@@ -8,6 +8,9 @@
 
 import UIKit
 
+struct PacketDecorationInfo {
+    static let padding = CGFloat(3)  //adding around the section.
+}
 class PacketDecorationView: UICollectionReusableView {
 
     override func awakeFromNib() {

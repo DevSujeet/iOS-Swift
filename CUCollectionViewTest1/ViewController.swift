@@ -24,6 +24,7 @@ class ViewController: UIViewController {
             
             collectionView.delegate = collectionDelegate
             collectionView.dataSource = collectionDelegate
+//            self.collectionView?.isPrefetchingEnabled = false
             
         }
     }

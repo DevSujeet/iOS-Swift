@@ -41,10 +41,37 @@ class CustomAlignedCellFlowLayout: UICollectionViewFlowLayout
         {
             //to add decoration view at section level
             //idea is to add a decoration view behind the whole section
-            for attr in attrs {
+            for (index,attr) in attrs.enumerated() {
+                
+                allAttributes += attrs
+                
+                if attr.representedElementCategory == .decorationView{
+                    allAttributes.remove(at: index)
+                }
                 if attr.representedElementCategory == .supplementaryView {  //create adecorative atttribute for section
                     let packetDecorationAttr = self.layoutAttributesForDecorationView(ofKind: collectionViewInfo.packetDecorationKind, at: attr.indexPath) as! PacketDecorationViewLayoutAttributes//PacketDecorationViewLayoutAttributes(forDecorationViewOfKind: collectionViewInfo.packetDecorationKind, with: attr.indexPath)
+
+                    allAttributes.append(packetDecorationAttr)
+                }
+            }
+            self.applyAlignmentSetting(attrs: attrs)
+            
+        }
+        return allAttributes
+    }
+    
+    override func layoutAttributesForItem(at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
+        return super.layoutAttributesForItem(at:indexPath)
+    }
+    
+    override func layoutAttributesForDecorationView(ofKind elementKind: String, at indexPath: IndexPath)
+        -> UICollectionViewLayoutAttributes? {
+            
+                if elementKind == collectionViewInfo.packetDecorationKind {
+                    let packetDecorationAttr = PacketDecorationViewLayoutAttributes(
+                        forDecorationViewOfKind:collectionViewInfo.packetDecorationKind, with:indexPath)
                     
+                    let attr = self.layoutAttributesForItem(at: indexPath)!
                     // Set the color(s)
                     if (attr.indexPath.section % 2 == 0) {
                         packetDecorationAttr.color = UIColor.green.withAlphaComponent(0.5)
@@ -63,35 +90,17 @@ class CustomAlignedCellFlowLayout: UICollectionViewFlowLayout
                         tmpHeight = (lastCellFrame?.origin.y)! - attr.frame.origin.y + (lastCellFrame?.size.height)!
                         tmpWidth = (lastCellFrame?.size.width)!
                     }
-
-                    let packetRect = CGRect(x: self.sectionInset.left - 2, y: attr.frame.origin.y - 2 , width: tmpWidth + 4, height: tmpHeight + 4)
+                    
+                    let packetRect = CGRect(x: self.sectionInset.left - PacketDecorationInfo.padding, y: attr.frame.origin.y - PacketDecorationInfo.padding - SectionHeaderInfo.headerHeight , width: tmpWidth + (2 * PacketDecorationInfo.padding), height: tmpHeight + (2 * PacketDecorationInfo.padding) + SectionHeaderInfo.headerHeight)
                     
                     packetDecorationAttr.frame = packetRect
                     // Set the zIndex to be behind the item
                     packetDecorationAttr.zIndex = attr.zIndex - 1
-                    // Add the attribute to the list
-                    allAttributes.append(packetDecorationAttr)
+                    
+                    return packetDecorationAttr
                 }
-            }
-            self.applyAlignmentSetting(attrs: attrs)
             
-            allAttributes += attrs
-        }
-        return allAttributes
-    }
-    
-    override func layoutAttributesForItem(at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
-        return super.layoutAttributesForItem(at:indexPath)
-    }
-    
-    override func layoutAttributesForDecorationView(ofKind elementKind: String, at indexPath: IndexPath)
-        -> UICollectionViewLayoutAttributes? {
-            
-            if elementKind == collectionViewInfo.packetDecorationKind {
-                let atts = PacketDecorationViewLayoutAttributes(
-                    forDecorationViewOfKind:collectionViewInfo.packetDecorationKind, with:indexPath)
-                return atts
-            }
+           
             return nil
     }
     

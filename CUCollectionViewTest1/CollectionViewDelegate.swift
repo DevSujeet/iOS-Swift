@@ -68,7 +68,7 @@ class CollectionViewDelegate:NSObject,UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         
         let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: collectionViewInfo.headerReuseIdentifier, for: indexPath) as! PacketSectionView
-        headerView.sectionTitleLabel.text = "header"
+        headerView.sectionTitleLabel.text = "header \(indexPath.section)"
         return headerView
     }
     
@@ -131,7 +131,7 @@ extension CollectionViewDelegate:UICollectionViewDelegateFlowLayout {
         case .packet(_):
             //width doesnt have effect in the collection header se=ize for vertical scroll.
             let width = UIScreen.main.bounds.width - 200//(self.sectionInsets.left * 2)
-            return CGSize(width: width, height: 50)
+            return CGSize(width: width, height: SectionHeaderInfo.headerHeight)
         default:
             return CGSize(width: 0, height: 0)
         }
