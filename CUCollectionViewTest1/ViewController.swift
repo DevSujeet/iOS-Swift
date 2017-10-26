@@ -8,6 +8,13 @@
 
 import UIKit
 
+struct controllerSetting {
+    
+    /// describe the cell alignment in the collectionview
+    static let cellAlignmnet = flowLayoutAlignment.top
+    
+}
+
 class ViewController: UIViewController {
     let collectionDelegate = CollectionViewDelegate()
     @IBOutlet weak var collectionView: UICollectionView! {
@@ -33,7 +40,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         let myLayout = CustomAlignedCellFlowLayout()//CustomAlignedCellFlowLayout()
-        myLayout.flowAlignment = .bottom
+        myLayout.flowAlignment = controllerSetting.cellAlignmnet
         myLayout.customFlowDelegate = collectionDelegate
 
 //        UIEdgeInsetsMake(<#T##top: CGFloat##CGFloat#>, <#T##left: CGFloat##CGFloat#>, <#T##bottom: CGFloat##CGFloat#>, <#T##right: CGFloat##CGFloat#>)

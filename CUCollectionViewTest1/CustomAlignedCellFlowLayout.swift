@@ -9,17 +9,27 @@
 import Foundation
 import UIKit
 
+/// To define the cell layout with the row
+///
+/// - normal: to align the cell to center axis in the row
+/// - top: to align the cell to top  in the row
+/// - bottom: to align the cell to bottom axis in the row
 enum flowLayoutAlignment {
     case normal
     case top
     case bottom
 }
+
+/// to delegate the fetching of packet information
 protocol CustomAlignedCellFlowLayoutDelegate:NSObjectProtocol {
     func packetAtSection(section:Int) ->PacketData?
 }
 
+/// Custom alignned cell layout which align the cells along the axis of cell row
 class CustomAlignedCellFlowLayout: UICollectionViewFlowLayout
 {
+    
+    /// to describe the cell alignment along the row.
     var flowAlignment:flowLayoutAlignment? = .normal
     weak var customFlowDelegate:CustomAlignedCellFlowLayoutDelegate?
     override init() {
@@ -81,7 +91,8 @@ class CustomAlignedCellFlowLayout: UICollectionViewFlowLayout
                     let packetDecorationAttr = PacketDecorationViewLayoutAttributes(
                         forDecorationViewOfKind:collectionViewInfo.packetDecorationKind, with:indexPath)
                     
-                    let attr = self.layoutAttributesForItem(at: indexPath)!
+                    let attr = self.layoutAttributesForItem(at: indexPath)! //the attribute is of the cell
+                    let sectionAttr = self.layoutAttributesForSupplementaryView(ofKind: "", at: indexPath)
                     // Set the color(s)
                     if (attr.indexPath.section % 2 == 0) {
                         packetDecorationAttr.color = UIColor.green.withAlphaComponent(0.5)
@@ -116,7 +127,7 @@ class CustomAlignedCellFlowLayout: UICollectionViewFlowLayout
     
     //MARK:- private function to set alignment of the cell.
     private func applyAlignmentSetting(attrs:[UICollectionViewLayoutAttributes]){
-        if .normal != flowAlignment {
+        if flowAlignment != .normal {
             var baseline: CGFloat = -2
             var sameLineElements = [UICollectionViewLayoutAttributes]()
             for element in attrs
